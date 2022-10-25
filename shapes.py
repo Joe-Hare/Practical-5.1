@@ -59,7 +59,38 @@ class Circle():
 
 class Curve():
     def __init__(self,*args):
-        #https: // www.geeksforgeeks.org / args - kwargs - python /
-        pass
+        self.points = []
+        for arg in args:
+            self.points.append(arg)
 
-print("hi")
+    def __str__(self):
+        return f"Curve with points: {self.points}"
+
+    def __repr__(self):
+        return self.points
+
+    def append_if_valid(self,curvePoint):
+        if curvePoint not in self.points:
+            self.points.append(curvePoint)
+        else:
+            print("Point already in curve")
+
+    def __getitem__(self, index):
+        return self.points[index]
+
+    def __setitem__(self, index, item):
+        self.points[index] = item
+
+# define a curve
+cur = Curve(Point(1,1),Point(2,4),Point(3,9))
+# cur = Curve(Point(1,1),(2,2)) # should raise a TypeError
+print(cur)
+print(cur.__repr__())
+# return a point/item
+print(cur[1]) # == print(cur.__getitem__(1))
+# return points/items i.e. subcurve
+print(cur[0:2]) # == print(cur.__getitem__(0:2))
+# update point
+cur[1] = Point(1,1) # == print(cur.__setitem__(1,Point(1,1)))
+# cur[1] = (1,1) # should raise a TypeError
+print(cur)
